@@ -1,0 +1,38 @@
+<Project>
+
+  <!--
+    Paths to the local Valheim install. Override on the command line if your library differs:
+      dotnet build -p:ValheimDir="E:\Steam\steamapps\common\Valheim"
+  -->
+  <PropertyGroup>
+    <ValheimDir Condition="'$(ValheimDir)' == ''">D:\SteamLibrary_500SSD\steamapps\common\Valheim</ValheimDir>
+    <ValheimManaged>$(ValheimDir)\valheim_Data\Managed</ValheimManaged>
+    <BepInExDir>$(ValheimDir)\BepInEx</BepInExDir>
+  </PropertyGroup>
+
+  <!--
+    Where Debug builds get deployed.
+
+    We develop against an r2modman profile, NOT the game folder. r2modman profiles are complete,
+    self-contained BepInEx installs (own core/, own winhttp.dll, own doorstop_config.ini) - so a
+    plugin dropped in the game folder is invisible to an r2modman launch, and vice versa. Deploying
+    to the profile is what makes "launch from r2modman" actually run this mod.
+
+    Compile-time references still come from the GAME folder (BepInExDir above): those DLLs are
+    identical and always present.
+  -->
+  <PropertyGroup>
+    <R2Profile Condition="'$(R2Profile)' == ''">$(APPDATA)\r2modmanPlus-local\Valheim\profiles\Default</R2Profile>
+    <DeployDir Condition="'$(DeployDir)' == ''">$(R2Profile)\BepInEx\plugins\StationPacks</DeployDir>
+  </PropertyGroup>
+
+  <Target Name="VerifyValheimDir" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(ValheimManaged)\assembly_valheim.dll')"
+           Text="Could not find assembly_valheim.dll under '$(ValheimManaged)'. Set ValheimDir (see Directory.Build.props)." />
+    <Error Condition="!Exists('$(BepInExDir)\core\BepInEx.dll')"
+           Text="Could not find BepInEx under '$(BepInExDir)'. Install denikson-BepInExPack_Valheim first." />
+    <Error Condition="!Exists('$(BepInExDir)\plugins\Jotunn.dll')"
+           Text="Could not find Jotunn under '$(BepInExDir)\plugins'. Install ValheimModding-Jotunn first." />
+  </Target>
+
+</Project>

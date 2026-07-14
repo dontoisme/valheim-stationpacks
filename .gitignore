@@ -1,0 +1,16 @@
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
+
+# .NET build output
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Thunderstore packaging output
+package/*.zip

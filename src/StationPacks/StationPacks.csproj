@@ -1,0 +1,99 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>StationPacks</AssemblyName>
+    <RootNamespace>StationPacks</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Version>0.1.0</Version>
+    <Product>StationPacks</Product>
+    <Description>Wearable crafting stations for building in the field.</Description>
+    <!-- The game ships no XML docs and Unity/Valheim refs are noisy; keep the build readable. -->
+    <NoWarn>$(NoWarn);CS0649;CS0169</NoWarn>
+    <DebugType>portable</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- net48 targeting pack: this box has the .NET 9 SDK but no Framework dev pack. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <!-- Rewrites assembly_valheim's private members to public at build time (see Publicize below). -->
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!--
+    Reference the DLLs from the local install rather than NuGet reference assemblies:
+    this Valheim build runs Unity 6000.0.61f1 and may be ahead of the published packages.
+    Private=false => never copy into the output; the game already has them loaded.
+  -->
+  <ItemGroup>
+    <Reference Include="assembly_valheim">
+      <HintPath>$(ValheimManaged)\assembly_valheim.dll</HintPath>
+      <Private>false</Private>
+      <Publicize>true</Publicize>
+    </Reference>
+    <Reference Include="assembly_utils">
+      <HintPath>$(ValheimManaged)\assembly_utils.dll</HintPath>
+      <Private>false</Private>
+      <Publicize>true</Publicize>
+    </Reference>
+    <!-- Holds the Localization class. -->
+    <Reference Include="assembly_guiutils">
+      <HintPath>$(ValheimManaged)\assembly_guiutils.dll</HintPath>
+      <Private>false</Private>
+      <Publicize>true</Publicize>
+    </Reference>
+
+    <Reference Include="UnityEngine">
+      <HintPath>$(ValheimManaged)\UnityEngine.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.ImageConversionModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.AnimationModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(ValheimManaged)\UnityEngine.UI.dll</HintPath><Private>false</Private>
+    </Reference>
+    <!-- Jotunn's CustomItem surface mentions AssetBundle even though we never load one. -->
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.AssetBundleModule.dll</HintPath><Private>false</Private>
+    </Reference>
+
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExDir)\core\BepInEx.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExDir)\core\0Harmony.dll</HintPath><Private>false</Private>
+    </Reference>
+    <Reference Include="Jotunn">
+      <HintPath>$(BepInExDir)\plugins\Jotunn.dll</HintPath><Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Icons are loaded at runtime from embedded PNGs; see PackRegistry.LoadSprite. -->
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\**\*.png" />
+  </ItemGroup>
+
+  <!-- Debug builds deploy into the r2modman profile (see DeployDir in Directory.Build.props). -->
+  <Target Name="DeployToGame" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+    <MakeDir Directories="$(DeployDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).pdb" DestinationFolder="$(DeployDir)"
+          Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+    <Message Importance="high" Text="Deployed $(AssemblyName).dll -> $(DeployDir)" />
+  </Target>
+
+</Project>

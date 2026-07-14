@@ -1,0 +1,10 @@
+{
+  "name": "StationPacks",
+  "version_number": "0.1.0",
+  "website_url": "",
+  "description": "Wearable crafting stations. Build and deconstruct anywhere, at the cost of your cape slot, your carry weight, and a charge you refill at the bench you left behind.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2333",
+    "ValheimModding-Jotunn-2.29.2"
+  ]
+}
