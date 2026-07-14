@@ -1,4 +1,4 @@
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Jotunn.Managers;
@@ -26,7 +26,7 @@ namespace StationPacks
     {
         public const string Guid = "donrh.stationpacks";
         public const string Name = "StationPacks";
-        public const string Version = "0.1.0";
+        public const string Version = "0.1.1";
 
         internal static ManualLogSource Log;
 

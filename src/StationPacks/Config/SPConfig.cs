@@ -24,6 +24,7 @@ namespace StationPacks.Config
         public static ConfigEntry<SlotMode> Slot;
         public static ConfigEntry<bool> Verbose;
         public static ConfigEntry<bool> ShowChargeMessages;
+        public static ConfigEntry<bool> AllowGiveCommand;
 
         // --- balance (server-authoritative in spirit; see docs/PLAN.md section 7) ---
         public static ConfigEntry<float> MaxDurability;
@@ -47,6 +48,11 @@ namespace StationPacks.Config
 
             ShowChargeMessages = cfg.Bind("1 - General", "Show charge messages", true,
                 "Show a top-left message with the pack's remaining charge as it drains.");
+
+            AllowGiveCommand = cfg.Bind("1 - General", "Allow the give command", false,
+                "Enables the 'stationpacks give' console command, which hands you all six packs for free.\n" +
+                "That skips every recipe and progression gate, so it is off by default - it exists for testing.\n" +
+                "The read-only diagnostics (phantoms, invariant, stations) always work.");
 
             MaxDurability = cfg.Bind("2 - Balance", "Max charge", 100f,
                 new ConfigDescription("Charge of a quality-1 pack. One point is spent per piece placed.",

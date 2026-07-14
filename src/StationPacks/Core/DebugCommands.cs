@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Jotunn.Entities;
 using Jotunn.Managers;
+using StationPacks.Config;
 using UnityEngine;
 
 namespace StationPacks.Core
@@ -99,9 +100,22 @@ namespace StationPacks.Core
             }
         }
 
-        /// <summary>Convenience: hand over every pack so a playtest does not need a full progression run.</summary>
+        /// <summary>
+        /// Hands over every pack, skipping every recipe and progression gate. That is a cheat, so it
+        /// is gated behind a config flag that defaults to off. The read-only diagnostics above are
+        /// harmless and stay available unconditionally.
+        /// </summary>
         private static void Give()
         {
+            if (!SPConfig.AllowGiveCommand.Value)
+            {
+                Console.instance.Print(
+                    "<color=orange>'give' is disabled - it hands you all six packs for free, skipping " +
+                    "every recipe.</color>\nEnable 'Allow the give command' in the StationPacks config " +
+                    "if you want it for testing.");
+                return;
+            }
+
             var player = Player.m_localPlayer;
             if (player == null) return;
 

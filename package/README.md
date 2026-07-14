@@ -2,6 +2,18 @@
 
 **Wearable crafting stations.** Craft a Workbench Pack, wear it, and build anywhere.
 
+> ### ⚠ Read this before you uninstall
+>
+> **If you remove or disable this mod, your packs are permanently deleted** — from your inventory,
+> from your equipment slot, and from any chest they're sitting in. They vanish silently, with no
+> warning and no error.
+>
+> This isn't a bug and it isn't special to StationPacks; Valheim stores items by name, and any item
+> whose mod is gone is simply dropped on load. Every custom-item mod behaves this way.
+>
+> **Before uninstalling, dismantle your packs** or accept that the materials are gone. And back up
+> your character if you care about it.
+
 Building in Valheim is gated on standing near a crafting station. Every time a build creeps past a
 workbench's radius you stop, gather materials, plant another bench, and tear it down later. The
 stonecutter is worse. The friction lands exactly when you're most engaged — mid-build.

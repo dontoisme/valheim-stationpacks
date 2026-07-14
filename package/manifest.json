@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "StationPacks",
-  "version_number": "0.1.0",
+  "version_number": "0.1.1",
   "website_url": "",
   "description": "Wearable crafting stations. Build and deconstruct anywhere, at the cost of your cape slot, your carry weight, and a charge you refill at the bench you left behind.",
   "dependencies": [

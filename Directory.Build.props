@@ -23,7 +23,15 @@
   -->
   <PropertyGroup>
     <R2Profile Condition="'$(R2Profile)' == ''">$(APPDATA)\r2modmanPlus-local\Valheim\profiles\Default</R2Profile>
-    <DeployDir Condition="'$(DeployDir)' == ''">$(R2Profile)\BepInEx\plugins\StationPacks</DeployDir>
+
+    <!--
+      Deploy ON TOP of the r2modman-managed install (published as Los_Goobers-StationPacks), rather
+      than into a folder of our own. Two folders would mean two DLLs with the same BepInEx GUID
+      fighting each other. Overwriting in place keeps r2modman's enable/disable toggle working while
+      the dev loop stays: build -> launch from r2modman.
+    -->
+    <ThunderstoreTeam Condition="'$(ThunderstoreTeam)' == ''">Los_Goobers</ThunderstoreTeam>
+    <DeployDir Condition="'$(DeployDir)' == ''">$(R2Profile)\BepInEx\plugins\$(ThunderstoreTeam)-StationPacks</DeployDir>
   </PropertyGroup>
 
   <Target Name="VerifyValheimDir" BeforeTargets="PrepareForBuild">

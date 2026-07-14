@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>StationPacks</AssemblyName>
     <RootNamespace>StationPacks</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Product>StationPacks</Product>
     <Description>Wearable crafting stations for building in the field.</Description>
     <!-- The game ships no XML docs and Unity/Valheim refs are noisy; keep the build readable. -->
