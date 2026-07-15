@@ -21,6 +21,16 @@ stonecutter is worse. The friction lands exactly when you're most engaged — mi
 StationPacks is **not** a config toggle that deletes the restriction. It's a thing you craft, wear,
 and pay for.
 
+## Screenshots
+
+Each pack wears the station it emulates on your back.
+
+![Workbench Pack](https://raw.githubusercontent.com/dontoisme/valheim-stationpacks/main/docs/media/pack-workbench.png)
+
+![Forge Pack](https://raw.githubusercontent.com/dontoisme/valheim-stationpacks/main/docs/media/pack-forge.png)
+
+![Galdr Pack](https://raw.githubusercontent.com/dontoisme/valheim-stationpacks/main/docs/media/pack-galdr.png)
+
 ## What a pack does
 
 While worn, a pack lets you **place, deconstruct and repair** pieces that need its station — with no
