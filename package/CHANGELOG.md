@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0
+
+Packs now *look* like what they are, and the lineup is settled by what actually gates building.
+
+- **Each pack wears its station on your back.** The Workbench Pack carries a mini workbench, the
+  Forge Pack a little forge, the Black Forge Pack a glowing black forge, and so on — built from the
+  real station meshes, riding your spine so they lean with you as you move. No cape underneath.
+- **Distinct inventory icons** for every pack.
+- **Six packs, all of which gate building:** Workbench, Stonecutter, Forge, Artisan, Black Forge,
+  Galdr Table. (The black forge and galdr table turned out to gate a number of Mistlands build
+  pieces, contrary to the wiki — so they're in.)
+- The mod's internal ID changed to `LosGoobers.StationPacks`. **Your old config resets to defaults**
+  the first time you run this version; delete the leftover `donrh.stationpacks.cfg` if you like.
+
 ## 0.1.1
 
 **Fixes a balance bug that made packs strictly better than they should be. Please update.**

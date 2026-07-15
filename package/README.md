@@ -51,13 +51,14 @@ made the build possible — so you never bleed charge inside your own base.
 | Black Forge Pack | Black Forge | Black Forge | Black Forge |
 | Galdr Pack | Galdr Table | Galdr Table | Galdr Table |
 
-Packs upgrade to quality 3; each level adds charge.
+Packs upgrade to quality 3; each level adds charge. Every station that gates *building* gets a pack —
+even the black forge and galdr table, which turn out to gate a fair few Mistlands build pieces.
 
 ## Install
 
-**Every client and the server must have this mod, at the same version.** Six custom items cross the
-network, so a server that doesn't know them can't store them. The mod will refuse the connection
-rather than corrupt anything.
+**Every client and the server must have this mod, at the same version.** The packs are custom items
+that cross the network, so a server that doesn't know them can't store them. The mod will refuse the
+connection rather than corrupt anything.
 
 ## Compatibility
 
@@ -71,7 +72,8 @@ rather than corrupt anything.
 
 ## Config
 
-`BepInEx/config/donrh.stationpacks.cfg` — slot mode, charge costs, max charge, build range, weight.
+Edit the StationPacks config in `BepInEx/config/` (created on first launch), or use a config
+manager in-game — slot mode, charge costs, max charge, build range, weight, and pack appearance.
 
 ## Credits
 

@@ -5,7 +5,7 @@
     <AssemblyName>StationPacks</AssemblyName>
     <RootNamespace>StationPacks</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <Version>0.1.1</Version>
+    <Version>0.2.0</Version>
     <Product>StationPacks</Product>
     <Description>Wearable crafting stations for building in the field.</Description>
     <!-- The game ships no XML docs and Unity/Valheim refs are noisy; keep the build readable. -->
@@ -54,9 +54,6 @@
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>$(ValheimManaged)\UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private>
     </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>$(ValheimManaged)\UnityEngine.ImageConversionModule.dll</HintPath><Private>false</Private>
-    </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>$(ValheimManaged)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private>
     </Reference>
@@ -70,6 +67,11 @@
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>$(ValheimManaged)\UnityEngine.AssetBundleModule.dll</HintPath><Private>false</Private>
     </Reference>
+    <!--
+      Icon PNGs are decoded through Jotunn's AssetUtils.LoadImage rather than by referencing
+      UnityEngine.ImageConversionModule directly: that module pulls in netstandard 2.1, which clashes
+      with net48's netstandard 2.0. Letting Jotunn own the conversion sidesteps the whole conflict.
+    -->
 
     <Reference Include="BepInEx">
       <HintPath>$(BepInExDir)\core\BepInEx.dll</HintPath><Private>false</Private>

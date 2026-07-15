@@ -52,6 +52,11 @@ namespace StationPacks.Core
                 StripInheritedPerks(shared, def);
                 shared.m_maxQuality = 3;
 
+                var icon = LoadIcon(def);
+                if (icon != null) shared.m_icons = new[] { icon };
+
+                PackVisual.Apply(prefab, def);
+
                 var config = new ItemConfig
                 {
                     Name = def.NameToken,
@@ -111,6 +116,46 @@ namespace StationPacks.Core
             // The only stats a pack carries. Re-applied last so nothing above can clobber them.
             shared.m_weight = def.Weight;
             shared.m_movementModifier = def.MovementModifier;
+        }
+
+        /// <summary>
+        /// Loads a pack's inventory icon from the PNG embedded at StationPacks.Assets.icon_&lt;tag&gt;.png.
+        /// No Unity Editor and no AssetBundle: read the resource bytes, LoadImage into a Texture2D,
+        /// Sprite.Create. Returns null on any failure, in which case the pack keeps the cloned cape's
+        /// icon rather than showing nothing.
+        /// </summary>
+        private static Sprite LoadIcon(PackDefinition def)
+        {
+            try
+            {
+                var asm = typeof(PackRegistry).Assembly;
+                using (var stream = asm.GetManifestResourceStream(def.IconResource))
+                {
+                    if (stream == null)
+                    {
+                        Plugin.Log.LogWarning($"{def.DisplayName}: icon resource '{def.IconResource}' not found.");
+                        return null;
+                    }
+                    var bytes = new byte[stream.Length];
+                    stream.Read(bytes, 0, bytes.Length);
+
+                    // Jotunn wraps ImageConversion.LoadImage, so our assembly never references the
+                    // netstandard-2.1 module directly (see the note in the csproj).
+                    var tex = Jotunn.Utils.AssetUtils.LoadImage(bytes);
+                    if (tex == null)
+                    {
+                        Plugin.Log.LogWarning($"{def.DisplayName}: failed to decode icon PNG.");
+                        return null;
+                    }
+                    tex.filterMode = FilterMode.Bilinear;
+                    return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+                }
+            }
+            catch (System.Exception e)
+            {
+                Plugin.Log.LogWarning($"{def.DisplayName}: icon load threw {e.GetType().Name}: {e.Message}");
+                return null;
+            }
         }
 
         private static void AddLocalization()

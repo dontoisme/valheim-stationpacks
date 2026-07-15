@@ -24,9 +24,9 @@ namespace StationPacks
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     internal sealed class Plugin : BaseUnityPlugin
     {
-        public const string Guid = "donrh.stationpacks";
+        public const string Guid = "LosGoobers.StationPacks";
         public const string Name = "StationPacks";
-        public const string Version = "0.1.1";
+        public const string Version = "0.2.0";
 
         internal static ManualLogSource Log;
 
@@ -48,8 +48,6 @@ namespace StationPacks
             // Phantom stations mirror ZNetScene's station prefabs, which are only registered once a
             // world is entered.
             ZNetSceneReady.Subscribe(PhantomStationRegistry.Build);
-
-            DebugCommands.Register();
 
             Log.LogInfo($"{Name} {Version} loaded.");
         }

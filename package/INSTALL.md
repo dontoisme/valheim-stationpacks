@@ -84,4 +84,4 @@ made the build possible.
 - What an *unmodded* player sees when you walk past wearing a pack: unknown (probably no cape).
 - Balance numbers are first-draft guesses. All tunable in the config.
 
-Config: `BepInEx\config\donrh.stationpacks.cfg` (created on first run).
+Config: `BepInEx\config\LosGoobers.StationPacks.cfg` (created on first run).
