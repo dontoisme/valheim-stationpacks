@@ -96,6 +96,10 @@ namespace StationPacks.Core
                                $"'{def.EffectiveBackMeshDonor}'.");
         }
 
+        /// <summary>Names of the parts a pack would mount, for the 'meshes' dev command.</summary>
+        public static System.Collections.Generic.List<string> PickedPartNames(GameObject donor, PackDefinition def) =>
+            CollectPicks(donor, def).Select(p => p.src.gameObject.name).ToList();
+
         /// <summary>A borrowable mesh: the mesh, its materials, and the transform it sits at on the donor.</summary>
         private struct Pick
         {

@@ -18,15 +18,13 @@ namespace StationPacks
     /// </summary>
     [BepInPlugin(Guid, Name, Version)]
     [BepInDependency(Jotunn.Main.ModGuid)]
-    [BepInDependency("shudnal.ExtraSlots", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency("Azumatt.AzuExtendedPlayerInventory", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("vapok.mods.adventurebackpacks", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     internal sealed class Plugin : BaseUnityPlugin
     {
         public const string Guid = "LosGoobers.StationPacks";
         public const string Name = "StationPacks";
-        public const string Version = "0.2.0";
+        public const string Version = "0.3.0";
 
         internal static ManualLogSource Log;
 
@@ -48,6 +46,11 @@ namespace StationPacks
             // Phantom stations mirror ZNetScene's station prefabs, which are only registered once a
             // world is entered.
             ZNetSceneReady.Subscribe(PhantomStationRegistry.Build);
+
+            // Dev tooling - registered always, but gated behind the 'Enable dev tools' config so it
+            // stays invisible to players.
+            DebugCommands.Register();
+            gameObject.AddComponent<Core.TuningPanel>();
 
             Log.LogInfo($"{Name} {Version} loaded.");
         }

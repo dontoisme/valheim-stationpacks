@@ -9,15 +9,17 @@ namespace StationPacks.Patches
     /// <summary>
     /// Makes the back mesh follow the torso.
     ///
-    /// By default the game attaches a cape/shoulder item under the body model's root, so a static
-    /// mesh parented there stays rigid relative to the whole character - it floats in place when the
+    /// By default the game attaches an armor item under the body model's root, so a static mesh
+    /// parented there stays rigid relative to the whole character - it floats in place when the
     /// character bends (sitting, sleeping). Reparenting our container onto the actual spine bone lets
     /// it lean and twist with the upper body like a real pack.
     ///
-    /// We do this in a postfix on VisEquipment.SetShoulderEquipped, which runs right after the item's
-    /// visual is instantiated (and re-runs whenever the shoulder item changes).
+    /// We hook VisEquipment.AttachArmor, the shared method that instantiates the attach_skin visual for
+    /// EVERY slot (shoulder, utility, chest, ...). That way the bind fires whether a pack is worn on the
+    /// utility slot (the default) or the shoulder slot, without caring which. It scans for our own
+    /// PackBackTag, so equips of ordinary armor are a cheap no-op.
     /// </summary>
-    [HarmonyPatch(typeof(VisEquipment), nameof(VisEquipment.SetShoulderEquipped))]
+    [HarmonyPatch(typeof(VisEquipment), "AttachArmor")]
     internal static class BackBonePatch
     {
         [HarmonyPostfix]

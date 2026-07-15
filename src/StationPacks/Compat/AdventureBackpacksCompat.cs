@@ -4,11 +4,9 @@ using StationPacks.Config;
 namespace StationPacks.Compat
 {
     /// <summary>
-    /// AdventureBackpacks also lives in the shoulder slot, and vanilla allows exactly one shoulder
-    /// item. That is not a crash - it is exclusivity: you wear one or the other.
-    ///
-    /// We say so once, plainly, and move on. No hard-fail, no repeated warnings. If the player also
-    /// runs a slot-extender, Auto mode already resolves the conflict and we stay quiet.
+    /// AdventureBackpacks lives in the shoulder/cape slot. Station packs default to the vanilla utility
+    /// slot, so out of the box the two no longer contend for a slot - you can wear both. We just note
+    /// it once for the log, and flag the one case that still conflicts: forcing packs onto the shoulder.
     /// </summary>
     public static class AdventureBackpacksCompat
     {
@@ -20,18 +18,18 @@ namespace StationPacks.Compat
         {
             if (!Installed) return;
 
-            if (ExtraSlotsCompat.Available && SPConfig.Slot.Value != SlotMode.Shoulder)
+            if (SPConfig.Slot.Value == SlotMode.Shoulder)
             {
                 Plugin.Log.LogInfo(
-                    "AdventureBackpacks detected. A slot-extender is also present, so station packs use " +
-                    "their own slot and the two can be worn together.");
+                    "AdventureBackpacks detected, and StationPacks 'Slot mode' is set to Shoulder - both " +
+                    "want the cape slot, so you can wear one or the other. Switch Slot mode to Utility " +
+                    "(the default) to wear a backpack and a station pack together.");
                 return;
             }
 
             Plugin.Log.LogInfo(
-                "AdventureBackpacks detected. Both mods use the vanilla shoulder slot, so you can wear a " +
-                "backpack or a station pack, but not both at once. To wear both, install a slot-extender " +
-                "(ExtraSlots) and leave 'Slot mode' on Auto.");
+                "AdventureBackpacks detected. Station packs use the utility slot, so the two coexist - " +
+                "backpack on your back, station pack on your belt.");
         }
     }
 }

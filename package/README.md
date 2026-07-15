@@ -21,8 +21,11 @@ the whole point: mobility you earn and pay for, not a cheat toggle you flip.
   mountain.
 - **Six packs**, each worn as the station it replaces: Workbench, Stonecutter, Forge, Artisan,
   Black Forge, Galdr Table.
-- **A real cost.** Packs are heavy, they slow you down, they cost you a slot, and they run down with
-  every piece you place. Recharge at the very bench you were trying to avoid.
+- **A real cost.** Packs are heavy, they slow you down, and they run down with every piece you place.
+  Recharge at the very bench you were trying to avoid.
+- **They live in your utility slot** — the one the Megingjord belt and Wishbone use. So you carry
+  *one* station at a time, and it's a genuine choice: a bench, or that +150-carry belt. Your cape
+  slot stays free, so you can still wear a wolf cape and build on the mountain without freezing.
 - **Not portable-everything.** You can *build* in the field, but you can't craft or upgrade gear.
   On purpose — this is a building mod, not a bag of holding.
 
@@ -49,9 +52,8 @@ the mod refuses the connection rather than risk your world.
 
 ## Compatibility
 
-- **AdventureBackpacks** — both want the vanilla cape slot, so out of the box you wear one or the
-  other. Run a slot-extender (**ExtraSlots**) and move your backpack to its own slot, and the two
-  live happily together.
+- **AdventureBackpacks** — coexist out of the box. A backpack rides your cape slot, a station pack
+  rides your utility slot — wear both, no slot-extender needed.
 - **AzuCraftyBoxes** — a great pairing: it pulls build materials from nearby chests, StationPacks
   supplies the station. Build a base out of your storage without a bench in sight.
 - **Plays nice with real stations.** Your base forge keeps its extensions and its level — a pack is

@@ -58,7 +58,7 @@ namespace StationPacks.Core
         public float BackScale = 0.0032f;
 
         /// <summary>Local position on the Spine2 bone: x = left/right, y = up the back, z = away from spine.</summary>
-        public Vector3 BackOffset = new Vector3(0f, 0.0012f, 0.0007f);
+        public Vector3 BackOffset = new Vector3(0f, -0.0007f, -0.0001f);
 
         /// <summary>Local euler rotation on the Spine2 bone, in degrees.</summary>
         public Vector3 BackEuler = new Vector3(55f, 160f, -6.3f);
@@ -146,6 +146,9 @@ namespace StationPacks.Core
                 Description = "A field anvil and a bellows you will regret carrying uphill.",
                 Weight = 16f,
                 MovementModifier = -0.07f,
+                BackScale = 0.0032f,
+                BackOffset = new Vector3(0f, -0.0001f, -0.0001f),
+                BackEuler = new Vector3(55f, 160f, -6.3f),
                 Requirements = new[]
                 {
                     new RequirementConfig("Bronze", 8, 4),
@@ -167,7 +170,7 @@ namespace StationPacks.Core
                 Weight = 12f,
                 MovementModifier = -0.05f,
                 BackScale = 0.0032f,
-                BackOffset = new Vector3(0f, -0.0011f, 0.0007f),
+                BackOffset = new Vector3(0f, -0.0011f, -0.0001f),
                 BackEuler = new Vector3(55f, 160f, -6.3f),
                 Requirements = new[]
                 {
@@ -194,6 +197,9 @@ namespace StationPacks.Core
                 Description = "Black metal, still warm. It hums against your spine as you walk.",
                 Weight = 20f,
                 MovementModifier = -0.08f,
+                BackScale = 0.0032f,
+                BackOffset = new Vector3(0.0002f, 0.001f, 0.0001f),
+                BackEuler = new Vector3(-78.7f, -11.3f, 1.2f),
                 Requirements = new[]
                 {
                     new RequirementConfig("BlackMetal", 12, 6),
@@ -215,8 +221,8 @@ namespace StationPacks.Core
                 MovementModifier = -0.04f,
                 // Tuned per-pack with the F6 panel (the galdr table sits differently to a workbench).
                 BackScale = 0.0032f,
-                BackOffset = new Vector3(0f, 0.0012f, -0.0012f),
-                BackEuler = new Vector3(-97.5f, 180f, 180f),
+                BackOffset = new Vector3(0.0008f, 0.001f, -0.0016f),
+                BackEuler = new Vector3(-78.7f, -11.3f, 1.2f),
                 Requirements = new[]
                 {
                     new RequirementConfig("Eitr", 20, 10),

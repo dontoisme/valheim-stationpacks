@@ -5,7 +5,7 @@
     <AssemblyName>StationPacks</AssemblyName>
     <RootNamespace>StationPacks</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <Product>StationPacks</Product>
     <Description>Wearable crafting stations for building in the field.</Description>
     <!-- The game ships no XML docs and Unity/Valheim refs are noisy; keep the build readable. -->
@@ -56,6 +56,10 @@
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>$(ValheimManaged)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private>
+    </Reference>
+    <!-- IMGUI (GUILayout/GUI) for the dev tuning slider panel. -->
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>$(ValheimManaged)\UnityEngine.AnimationModule.dll</HintPath><Private>false</Private>

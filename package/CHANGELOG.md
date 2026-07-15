@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0
+
+**Packs moved to the utility slot — you can wear a cape again.**
+
+- **Station packs are now utility items** (the slot the Megingjord belt and Wishbone use) instead of
+  cape items. Two things fall out of that:
+  - **Your cape slot is free.** Wear a wolf cape for frost resistance *and* build on the mountain.
+    No more choosing between not-freezing and building.
+  - **One bench at a time, for free.** Vanilla has a single utility slot, so you carry one station —
+    and it's a real choice against that +150-carry belt.
+- **AdventureBackpacks now coexists out of the box** — backpack on your back, station pack on your
+  belt, no slot-extender required.
+- No new dependencies.
+
+> Your `Slot mode` config resets — the default is now `Utility`. Set it to `Shoulder` if you liked
+> the old cape-slot behavior, or `AnyInventory` for no opportunity cost.
+
 ## 0.2.0
 
 Packs now *look* like what they are, and the lineup is settled by what actually gates building.

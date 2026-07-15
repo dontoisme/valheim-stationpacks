@@ -3,19 +3,16 @@ using UnityEngine;
 
 namespace StationPacks.Config
 {
-    /// <summary>How we decide whether the player is wearing a station pack.</summary>
+    /// <summary>Which slot a station pack must sit in to work.</summary>
     public enum SlotMode
     {
-        /// <summary>Use a slot-extender mod's dedicated slot if one is loaded, else the shoulder.</summary>
-        Auto,
+        /// <summary>Vanilla utility slot (shared with the Megingjord belt / Wishbone). One at a time; frees the cape.</summary>
+        Utility,
 
-        /// <summary>Vanilla shoulder/cape slot. Mutually exclusive with capes and AdventureBackpacks.</summary>
+        /// <summary>Vanilla shoulder/cape slot. Costs you your cape instead of your belt.</summary>
         Shoulder,
 
-        /// <summary>A dedicated slot from ExtraSlots / AzuExtendedPlayerInventory.</summary>
-        ExtraSlot,
-
-        /// <summary>Anywhere in the inventory. Easy mode: no opportunity cost.</summary>
+        /// <summary>Anywhere in the inventory. Easy mode: no opportunity cost, and no 'one at a time'.</summary>
         AnyInventory,
     }
 
@@ -28,6 +25,10 @@ namespace StationPacks.Config
         public static ConfigEntry<bool> ShowBackMesh;
         public static ConfigEntry<bool> HideCape;
 
+        // --- dev tooling (gated off for players) ---
+        public static ConfigEntry<bool> DevTools;
+        public static ConfigEntry<KeyboardShortcut> TuneKey;
+
         // --- balance (server-authoritative in spirit; see docs/PLAN.md section 7) ---
         public static ConfigEntry<float> MaxDurability;
         public static ConfigEntry<float> DurabilityPerLevel;
@@ -38,12 +39,12 @@ namespace StationPacks.Config
 
         public static void Bind(ConfigFile cfg)
         {
-            Slot = cfg.Bind("1 - General", "Slot mode", SlotMode.Auto,
+            Slot = cfg.Bind("1 - General", "Slot mode", SlotMode.Utility,
                 "Where a station pack must sit to work.\n" +
-                "Auto: use a slot-extender mod's dedicated slot if present (leaves the cape slot free for " +
-                "AdventureBackpacks), otherwise the shoulder slot.\n" +
-                "Shoulder: vanilla cape slot. You give up your cape - that is the intended cost.\n" +
-                "AnyInventory: just carry it. No opportunity cost; effectively easy mode.");
+                "Utility: the vanilla utility slot (shared with the Megingjord belt and Wishbone). One pack " +
+                "at a time, and your cape slot stays free for survival capes.\n" +
+                "Shoulder: the vanilla cape slot - you give up your cape instead of your belt.\n" +
+                "AnyInventory: just carry it anywhere. No opportunity cost; effectively easy mode.");
 
             Verbose = cfg.Bind("1 - General", "Verbose logging", false,
                 "Log phantom-station construction and every grant. Noisy; for debugging only.");
@@ -83,6 +84,14 @@ namespace StationPacks.Config
                 new ConfigDescription(
                     "Radius the pack projects around you. Vanilla workbench is 20.",
                     new AcceptableValueRange<float>(4f, 64f)));
+
+            DevTools = cfg.Bind("9 - Dev", "Enable dev tools", false,
+                "Enables the in-game dev tooling: the 'stationpacks' console commands (give, meshes, back, " +
+                "phantoms, invariant, ...) and the back-mesh tuning panel. Off for normal play.");
+
+            TuneKey = cfg.Bind("9 - Dev", "Tuning panel key", new KeyboardShortcut(KeyCode.F6),
+                "Opens the live slider panel for positioning the pack on your back. Only works when " +
+                "'Enable dev tools' is on.");
         }
     }
 }

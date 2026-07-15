@@ -34,7 +34,9 @@ namespace StationPacks.Core
 
                 shared.m_name = def.NameToken;
                 shared.m_description = def.DescToken;
-                shared.m_itemType = ItemDrop.ItemData.ItemType.Shoulder;
+                // Utility slot (shared with the Megingjord belt / Wishbone): vanilla allows exactly one,
+                // so packs are one-at-a-time, and the cape slot stays free for survival capes.
+                shared.m_itemType = ItemDrop.ItemData.ItemType.Utility;
 
                 shared.m_weight = def.Weight;
                 shared.m_movementModifier = def.MovementModifier;
