@@ -24,10 +24,13 @@ namespace StationPacks.Config
         public static ConfigEntry<bool> ShowChargeMessages;
         public static ConfigEntry<bool> ShowBackMesh;
         public static ConfigEntry<bool> HideCape;
+        public static ConfigEntry<bool> RenderedIcons;
+        public static ConfigEntry<bool> HammerOverlay;
 
         // --- dev tooling (gated off for players) ---
         public static ConfigEntry<bool> DevTools;
         public static ConfigEntry<KeyboardShortcut> TuneKey;
+        public static ConfigEntry<KeyboardShortcut> IconTuneKey;
 
         // --- balance (server-authoritative in spirit; see docs/PLAN.md section 7) ---
         public static ConfigEntry<float> MaxDurability;
@@ -60,6 +63,15 @@ namespace StationPacks.Config
                 "Hide the cape's own cloth so only the backpack shows. Off keeps the cape draping behind\n" +
                 "the pack. Only matters when 'Show station on back' is on.");
 
+            RenderedIcons = cfg.Bind("3 - Appearance", "Rendered station icons", true,
+                "Render each pack's inventory icon from the actual station model, in the vanilla isometric\n" +
+                "style, instead of the shipped placeholder PNG. Off falls back to the PNG. Needs the model\n" +
+                "to be available; if a render fails, that pack falls back to its PNG on its own.");
+
+            HammerOverlay = cfg.Bind("3 - Appearance", "Hammer on icons", true,
+                "Lay the vanilla hammer across each pack's inventory icon, so it reads at a glance as a\n" +
+                "building tool. Off leaves the plain station icon.");
+
             MaxDurability = cfg.Bind("2 - Balance", "Max charge", 100f,
                 new ConfigDescription("Charge of a quality-1 pack. One point is spent per piece placed.",
                     new AcceptableValueRange<float>(1f, 10000f)));
@@ -86,12 +98,17 @@ namespace StationPacks.Config
                     new AcceptableValueRange<float>(4f, 64f)));
 
             DevTools = cfg.Bind("9 - Dev", "Enable dev tools", false,
-                "Enables the in-game dev tooling: the 'stationpacks' console commands (give, meshes, back, " +
-                "phantoms, invariant, ...) and the back-mesh tuning panel. Off for normal play.");
+                "Enables the in-game dev tooling: the 'stationpacks' console commands (give, meshes, " +
+                "phantoms, invariant, ...), the back-mesh tuning panel (F6), and the icon-framing panel " +
+                "(F7). Off for normal play.");
 
             TuneKey = cfg.Bind("9 - Dev", "Tuning panel key", new KeyboardShortcut(KeyCode.F6),
                 "Opens the live slider panel for positioning the pack on your back. Only works when " +
                 "'Enable dev tools' is on.");
+
+            IconTuneKey = cfg.Bind("9 - Dev", "Icon tuning panel key", new KeyboardShortcut(KeyCode.F7),
+                "Opens the live slider panel for framing a pack's rendered inventory icon (FOV, zoom, " +
+                "angle, size), with a preview and a bake line. Only works when 'Enable dev tools' is on.");
         }
     }
 }

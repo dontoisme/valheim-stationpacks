@@ -63,6 +63,30 @@ namespace StationPacks.Core
             tag.TargetEuler = def.BackEuler;
             container.transform.SetParent(attachSkin.transform, false);
 
+            int copied = PopulateMeshPieces(container, donor, def);
+
+            if (SPConfig.HideCape.Value)
+            {
+                // A cape draping behind a backpack reads as clutter. Hide the cape's own mesh so only
+                // the pack shows. We disable rather than destroy, in case a future toggle wants it back.
+                foreach (var smr in attachSkin.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+                    smr.enabled = false;
+            }
+
+            Plugin.Log.LogInfo($"{def.DisplayName}: mounted {copied} mesh part(s) from " +
+                               $"'{def.EffectiveBackMeshDonor}'.");
+        }
+
+        /// <summary>
+        /// Fills <paramref name="container"/> with a static copy of the donor station's mesh parts, one
+        /// child GameObject per borrowed renderer, at their donor-local placement so a multi-part station
+        /// (bench + legs + vise) keeps its shape. Returns the number of parts copied (0 if the donor had
+        /// nothing to borrow). Shared by the on-back mesh and the inventory-icon render, so both draw the
+        /// exact same station geometry.
+        /// </summary>
+        public static int PopulateMeshPieces(GameObject container, GameObject donor, PackDefinition def)
+        {
+            var picks = CollectPicks(donor, def);
             var donorRoot = donor.transform;
             foreach (var p in picks)
             {
@@ -82,18 +106,7 @@ namespace StationPacks.Core
                 dst.sharedMaterials = p.mats.Select(m => m != null ? new Material(m) : null).ToArray();
                 dst.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
             }
-            int copied = picks.Count;
-
-            if (SPConfig.HideCape.Value)
-            {
-                // A cape draping behind a backpack reads as clutter. Hide the cape's own mesh so only
-                // the pack shows. We disable rather than destroy, in case a future toggle wants it back.
-                foreach (var smr in attachSkin.GetComponentsInChildren<SkinnedMeshRenderer>(true))
-                    smr.enabled = false;
-            }
-
-            Plugin.Log.LogInfo($"{def.DisplayName}: mounted {copied} mesh part(s) from " +
-                               $"'{def.EffectiveBackMeshDonor}'.");
+            return picks.Count;
         }
 
         /// <summary>Names of the parts a pack would mount, for the 'meshes' dev command.</summary>

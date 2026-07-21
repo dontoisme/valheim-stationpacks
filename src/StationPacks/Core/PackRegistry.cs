@@ -54,7 +54,15 @@ namespace StationPacks.Core
                 StripInheritedPerks(shared, def);
                 shared.m_maxQuality = 3;
 
-                var icon = LoadIcon(def);
+                // Prefer a live render of the station model (vanilla isometric style); fall back to the
+                // shipped placeholder PNG, and finally to the cloned cape's own icon if both fail.
+                var icon = SPConfig.RenderedIcons.Value ? StationIconRenderer.Render(def) : null;
+                if (icon == null) icon = LoadIcon(def);
+                // Stamp the hammer across the icon so it reads as a building tool. Applied here rather
+                // than inside the render so the F7 framing panel still shows the bare station, and so
+                // the PNG fallback gets the same affordance. Falls back to the un-stamped icon on failure.
+                if (icon != null && SPConfig.HammerOverlay.Value)
+                    icon = HammerOverlay.Apply(icon) ?? icon;
                 if (icon != null) shared.m_icons = new[] { icon };
 
                 PackVisual.Apply(prefab, def);

@@ -81,8 +81,19 @@ does **not** grant portable item-crafting — that's deliberate; it's a building
 
 **Shipped:** 0.3.0 on Thunderstore (Los_Goobers team), public MIT repo.
 
+**In progress (uncommitted, still versioned 0.3.0 — bead `sp-iz1.1`):** rendered model icons.
+- `StationIconRenderer` renders each pack's icon from the real station mesh via Jotunn `RenderManager`,
+  vanilla isometric style. Falls back to the shipped PNG, then the cloned cape's icon.
+- Per-pack framing fields on `PackDefinition` (`IconFieldOfView` / `IconDistanceMultiplier` /
+  `IconRotationEuler` / `IconRenderSize`). Defaults are the Workbench tuning pass; the Galdr Pack
+  carries its own override. Tuned live with the **F7** dev panel (`IconTuningPanel`), whose "Copy bake
+  line" now emits paste-ready C# initializers.
+- `HammerOverlay` stamps the vanilla Hammer icon as a small bottom-right corner badge (with a drop
+  shadow) so a pack reads as a build tool. Reuses the game's own Hammer sprite — no new art. Toggle:
+  `3 - Appearance → "Hammer on icons"`. Size/position knobs are the constants at the top of the file.
+- Not yet: commit, version bump, Thunderstore repackage. See the rollback note below before playing on
+  a friend's 0.3.0 server with a version-bumped build.
+
 **Open:**
-- **0.3.1 — rendered model icons.** Replace the placeholder procedural icons with Jotunn
-  `RenderManager` renders of the station models, in the vanilla icon style.
 - **Multiplayer validation.** Never run over a real network — needs a server + a second client.
 - **Feedback collection** on the live builds against common mods.

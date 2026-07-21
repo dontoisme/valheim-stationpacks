@@ -81,6 +81,34 @@ namespace StationPacks.Core
         /// <summary>Donor mesh parts whose name contains one of these substrings are dropped - e.g. the legs.</summary>
         public string[] BackExcludeParts;
 
+        // Inventory-icon framing. The icon is a live render of the same donor station mesh (see
+        // StationIconRenderer), shot through Jotunn's RenderManager in the vanilla isometric style.
+        // These are the knobs for the iterate-and-look framing pass (task sp-iz1.1), same idea as the
+        // back-mesh tuning: nudge, rebuild, look. Defaults match RenderManager's own (a very narrow FOV
+        // for an almost-orthographic, vanilla-looking shot) and frame to the mesh bounds.
+
+        // Defaults are the Workbench Pack's F7 tuning pass, used as a shared starting point for every
+        // pack. The other stations can each be fine-tuned the same way (F7, drag, bake, paste the
+        // per-pack overrides into that pack's block below).
+
+        /// <summary>Rendered icon resolution in pixels (square). Vanilla icons read fine at 128.</summary>
+        public int IconRenderSize = 92;
+
+        /// <summary>
+        /// Camera field of view for the render. Small values (RenderManager's default is 0.5) flatten the
+        /// perspective toward orthographic - the look vanilla icons have. Larger values add perspective.
+        /// </summary>
+        public float IconFieldOfView = 33.55f;
+
+        /// <summary>Pushes the camera in (&lt;1) or out (&gt;1) from the bounds-fit distance. The zoom knob.</summary>
+        public float IconDistanceMultiplier = 1.034f;
+
+        /// <summary>
+        /// Extra rotation applied on top of the isometric base, in degrees, for stations that read better
+        /// from a different angle (a tall galdr table vs. a flat workbench). Zero = pure isometric.
+        /// </summary>
+        public Vector3 IconRotationEuler = new Vector3(11.7f, -46.8f, 0f);
+
         /// <summary>Localization token for the item name, e.g. "$sp_pack_workbench".</summary>
         public string NameToken => "$sp_" + PrefabName.ToLowerInvariant();
         public string DescToken => NameToken + "_desc";
@@ -223,6 +251,11 @@ namespace StationPacks.Core
                 BackScale = 0.0032f,
                 BackOffset = new Vector3(0.0008f, 0.001f, -0.0016f),
                 BackEuler = new Vector3(-78.7f, -11.3f, 1.2f),
+                // icon framing (F7 panel bake) - the galdr table frames larger/turned from the workbench default
+                IconFieldOfView = 33.55f,
+                IconDistanceMultiplier = 0.798f,
+                IconRotationEuler = new Vector3(-12.8f, 130.9f, 0f),
+                IconRenderSize = 92,
                 Requirements = new[]
                 {
                     new RequirementConfig("Eitr", 20, 10),

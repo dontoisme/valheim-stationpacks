@@ -51,6 +51,7 @@ namespace StationPacks
             // stays invisible to players.
             DebugCommands.Register();
             gameObject.AddComponent<Core.TuningPanel>();
+            gameObject.AddComponent<Core.IconTuningPanel>();
 
             Log.LogInfo($"{Name} {Version} loaded.");
         }
